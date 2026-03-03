@@ -31,7 +31,37 @@ Basic astro template with SEO, a header and tailwind css configured.
     git push -u origin main
     ```
 
+## Initial project configuration
+
+There are a bunch of things you need to change immediately after cloning the project (following the steps above):
+
+1. Modify the devcontainer name in `.devcontainer/devcontainer.json`
+
+2. Open the directory in a devcontainer: `F1` -> `Dev Containers: Reopen in container`
+
+3. Run `npm install`
+
+4. Update astro `npx @astrojs/upgrade`
+
+5. **Domain**: Replace `mywebsite.com` with your domain. Use the global search function in VSCode or Cursor and replace all.
+
+6. **Favicons**: Replace the 3 files in `src/assets/favicon/`. Use https://realfavicongenerator.net/ to generate them.
+
+7. **Logo**: Replace the main logo in `src/assets/icons/`. It must be in `.svg`.
+
+8. **OG Image**: Go to `src/assets/images/` and replace the og image. It must be in `.webp`.
+
+9. **Website config**: Open `src/config.ts` and update as needed.
+
+10. **Main colors**: Open `src/styles/global.css` and change the primary, secondary, etc. colors. You can later use them with tailwind classes like `text-primary`, `bg-secondary`, ...
+
+11. **Footer**: Update the footer in `src/components/common/Footer.astro`
+
+12. **Contact**: Update the contact form API endpoint in `src/pages/contact.astro`
+
 ## How to bring template updates later
+
+You might want to update the template later with some newly introduced features or improvements.
 
 1. Get the template changes
     ```bash
@@ -42,32 +72,6 @@ Basic astro template with SEO, a header and tailwind css configured.
     ```bash
     git merge upstream/main
     ```
-
-## Initial project configuration
-
-There are a bunch of things you need to change immediately after cloning the project:
-
-1. Open the directory in a devcontainer
-
-2. Run `npm install`
-
-3. Update astro `npx @astrojs/upgrade`
-
-4. **Domain**: Replace `mywebsite.com` with your domain. Use the global search function in VSCode or Cursor and replace all.
-
-5. **Favicons**: Replace the 3 files in `src/assets/favicon/`. Use https://realfavicongenerator.net/ to generate them.
-
-6. **Logo**: Replace the main logo in `src/icons/`. It must be in `.svg`.
-
-7. **OG Image**: Go to `src/assets/images/` and replace the og image. It must be in `.webp`.
-
-8. **Website config**: Open `src/config.ts` and update as needed.
-
-9. **Main colors**: Open `src/styles/global.css` and change the primary, secondary, etc. colors. You can later use them with tailwind classes like `text-primary`, `bg-secondary`, ...
-
-10. **Footer**: Update the footer in `src/components/common/Footer.astro`
-
-11. **Contact**: Update the contact form API endpoint in `src/pages/contact.astro`
 
 ## Importing images
 
