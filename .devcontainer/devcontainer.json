@@ -1,6 +1,6 @@
 // devcontainer.json
 {
-  "name": "mywebsite.com landing", // Name of the dev container
+  "name": "onticdani.com landing", // Name of the dev container
   "shutdownAction": "stopContainer", // Container behavior on VSCode close: none, stopContainer (default for image or Dockerfile), and stopCompose (default for Docker Compose)
   "build": {
     "dockerfile": "Dockerfile",
@@ -14,7 +14,6 @@
       "extensions": [
         "esbenp.prettier-vscode", // Prettier
         "mhutchie.git-graph", // Git Graph
-        "GitHub.copilot", // GitHub Copilot
         "stackbreak.comment-divider", // Comment Divider
         "stuart.unique-window-colors", // Unique Window Colors
         "astro-build.astro-vscode", // Astro
@@ -68,5 +67,8 @@
       }
     }
   },
-  "mounts": ["source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached"]
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.claude,target=/root/.claude,type=bind,consistency=cached"
+  ]
 }
