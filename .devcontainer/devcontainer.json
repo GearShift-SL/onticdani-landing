@@ -53,7 +53,9 @@
         "workbench.colorCustomizations": {
           "activityBar.background": "#298dff",
           "titleBar.activeBackground": "#298dff",
-          "titleBar.activeForeground": "#FBFBF6"
+          "titleBar.activeForeground": "#FBFBF6",
+          "titleBar.inactiveBackground": "#298dff",
+          "titleBar.inactiveForeground": "#FBFBFE"
         },
         // Prevent json schema warnings
         "json.schemas": [
