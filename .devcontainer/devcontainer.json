@@ -14,7 +14,6 @@
       "extensions": [
         "esbenp.prettier-vscode", // Prettier
         "mhutchie.git-graph", // Git Graph
-        "GitHub.copilot", // GitHub Copilot
         "stackbreak.comment-divider", // Comment Divider
         "stuart.unique-window-colors", // Unique Window Colors
         "astro-build.astro-vscode", // Astro
