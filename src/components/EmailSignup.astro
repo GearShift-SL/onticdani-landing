@@ -1,0 +1,131 @@
+---
+
+---
+
+<div class="w-full mt-4">
+  <div class="w-full border border-gray-200 dark:border-gray-700 rounded-2xl px-6 py-6 flex flex-col gap-4">
+    <div class="flex flex-col gap-1 text-center">
+      <h2 class="text-base font-bold leading-snug">Te echo un cable con la importación del coche de tus sueños</h2>
+      <p class="text-xs text-muted leading-relaxed">Déjame tu email y hablamos.</p>
+    </div>
+
+    <form
+      id="signup-form"
+      class="flex flex-col gap-3 transition-all duration-500"
+      style="transform-origin: top center;"
+    >
+      <input
+        type="email"
+        name="email"
+        placeholder="Tu email"
+        required
+        autocomplete="email"
+        class="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-transparent px-4 py-3 text-sm placeholder:text-muted focus:outline-none focus:border-primary transition-colors"
+      />
+
+      <label class="flex items-start gap-2 cursor-pointer">
+        <input type="checkbox" name="privacy" class="mt-0.5 shrink-0 accent-primary" />
+        <span class="text-xs text-muted leading-relaxed">
+          Acepto la <a href="/privacidad" class="underline hover:text-primary transition-colors"
+            >política de privacidad</a
+          >
+        </span>
+      </label>
+
+      <p id="signup-feedback" class="text-sm text-center hidden"></p>
+
+      <button
+        id="signup-submit"
+        type="submit"
+        class="w-full rounded-xl bg-primary text-white font-medium text-sm py-3 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Apúntame
+      </button>
+    </form>
+
+    <div
+      id="signup-success"
+      class="hidden flex-col items-center gap-2 text-center py-2 opacity-0 transition-all duration-500"
+      style="transform: scale(0.95) translateY(10px); transform-origin: top center;"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="36"
+        height="36"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="text-primary"
+      >
+        <path d="M20 6L9 17l-5-5"></path>
+      </svg>
+      <p class="font-semibold text-sm">¡Ya estás apuntado!</p>
+      <p class="text-xs text-muted">Te avisaré en cuanto haya novedades.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('signup-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('signup-submit') as HTMLButtonElement;
+  const feedback = document.getElementById('signup-feedback') as HTMLParagraphElement;
+  const successPanel = document.getElementById('signup-success') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    if (!formData.get('privacy')) {
+      feedback.textContent = 'Debes aceptar la política de privacidad.';
+      feedback.className = 'text-sm text-center text-red-400';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Enviando...';
+    feedback.className = 'text-sm text-center hidden';
+
+    const payload = {
+      audience: {
+        name: 'onticdani_importacion',
+        audience_type: 'contact_form',
+      },
+      email: formData.get('email'),
+
+      source: 1,
+    };
+
+    try {
+      const response = await fetch('https://formrelay.hlab.es/api/subscribers/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error('Error en el envío');
+
+      form.style.opacity = '0';
+      form.style.transform = 'scale(0.95) translateY(-10px)';
+
+      setTimeout(() => {
+        form.style.display = 'none';
+
+        successPanel.classList.remove('hidden');
+        successPanel.style.display = 'flex';
+        void successPanel.offsetWidth;
+        successPanel.style.opacity = '1';
+        successPanel.style.transform = 'scale(1) translateY(0)';
+      }, 500);
+    } catch {
+      feedback.textContent = 'Ha ocurrido un error. Por favor, inténtalo de nuevo más tarde.';
+      feedback.className = 'text-sm text-center text-red-400';
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText ?? 'Apúntame';
+    }
+  });
+</script>

@@ -3,6 +3,7 @@ import Layout from '~/layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import avatar from '~/assets/images/avatar.jpg';
 import { SOCIALS } from '~/config';
+import EmailSignup from '~/components/EmailSignup.astro';
 
 const socials = SOCIALS();
 
@@ -51,6 +52,9 @@ const links = [
         <h1 class="text-2xl font-bold tracking-tight">@onticdani</h1>
         <p class="text-sm text-muted max-w-xs leading-relaxed">Te gustan los coches? A mí también!</p>
       </div>
+
+      <!-- Email signup -->
+      <EmailSignup />
 
       <!-- Social links -->
       <div class="w-full flex flex-col gap-3">
