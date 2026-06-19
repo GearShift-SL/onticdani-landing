@@ -3,9 +3,9 @@ import Layout from '~/layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import avatar from '~/assets/images/avatar.jpg';
 import { SOCIALS } from '~/config';
-import EmailSignup from '~/components/EmailSignup.astro';
 
 const socials = SOCIALS();
+
 
 const links = [
   {
@@ -53,8 +53,20 @@ const links = [
         <p class="text-sm text-muted max-w-xs leading-relaxed">Te gustan los coches? A mí también!</p>
       </div>
 
-      <!-- Email signup -->
-      <EmailSignup />
+      <!-- Latest YouTube video -->
+      <div class="w-full flex flex-col items-center gap-3">
+        <h2 class="text-base font-semibold text-center">Mi ultimo video de youtube 👇</h2>
+        <div class="w-full aspect-video rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+          <iframe
+            id="yt-latest"
+            src=""
+            title="Último vídeo de YouTube"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="w-full h-full"
+          />
+        </div>
+      </div>
 
       <!-- Social links -->
       <div class="w-full flex flex-col gap-3">
@@ -114,6 +126,21 @@ const links = [
       </button>
     </div>
   </main>
+
+  <script>
+    const rssUrl = encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=UCXUO9hXueTVikG8nhNWZ8Rg');
+    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`)
+      .then((r) => r.json())
+      .then((data) => {
+        const link: string = data?.items?.[0]?.link ?? '';
+        const videoId = new URL(link).searchParams.get('v');
+        if (videoId) {
+          const iframe = document.getElementById('yt-latest') as HTMLIFrameElement | null;
+          if (iframe) iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        }
+      })
+      .catch(() => {});
+  </script>
 
   <script>
     const btn = document.getElementById('share-btn');
